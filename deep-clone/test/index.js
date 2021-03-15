@@ -73,5 +73,26 @@ describe('deepClone', () => {
       assert(obj.a === obj2.a);
       assert(obj.self !== obj2.self);
     })
+    it('拷贝正则表达式', () => {
+      const regExp = new RegExp('hi\\d+', 'gi');
+      regExp.a = { b: { c: 'hi' }};
+      const regExp2 = deepClone(regExp);
+      assert(regExp.source === regExp2.source);
+      assert(regExp.flags === regExp2.flags);
+      assert(regExp !== regExp2);
+      assert(regExp.a.b.c === regExp2.a.b.c);
+      assert(regExp.a.b !== regExp2.a.b);
+      assert(regExp.a !== regExp2.a);
+    })
+    it('拷贝日期', () => {
+      const date = new Date();
+      date.a = { b: { c: 'hi' }};
+      const date2 = deepClone(date);
+      assert(date !== date2);
+      assert(date.getTime() === date2.getTime());
+      assert(date.a.b.c === date2.a.b.c);
+      assert(date.a.b !== date2.a.b);
+      assert(date.a !== date2.a);
+    })
   });
 });

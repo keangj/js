@@ -57,7 +57,7 @@ describe('deepClone', () => {
       const fn = function (x, y) {
         return x + y;
       };
-      fn.a = { b: { c: 1 }};
+      fn.a = { b: { c: 'hi' }};
       const fn2 = deepClone(fn);
       assert(fn !== fn2);
       assert(fn.a.b.c === fn2.a.b.c);
@@ -65,5 +65,13 @@ describe('deepClone', () => {
       assert(fn.a !== fn2.a);
       assert(fn(1, 2) === fn2(1, 2));
     });
+    it('拷贝环', () => {
+      const obj = { a: 'hi' };
+      obj.self = obj;
+      const obj2 = deepClone(obj);
+      assert(obj !== obj2);
+      assert(obj.a === obj2.a);
+      assert(obj.self !== obj2.self);
+    })
   });
 });

@@ -5,7 +5,8 @@
   "author": "jay <keangjay@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "bind": "mocha bind/test/**/*.js"
+    "bind": "mocha bind/test/**/*.js",
+    "clone": "mocha deep-clone/test/**/*.js"
   },
   "devDependencies": {
     "chai": "^4.3.4",

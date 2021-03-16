@@ -22,7 +22,9 @@ function deepClone (source) {
       }
       cache.push([source, dist]);
       for (let key in source) {
-        dist[key] = deepClone(source[key]);
+        if (source.hasOwnProperty(key)) { // for in 循环会便利原型的属性
+          dist[key] = deepClone(source[key]);
+        }
       }
       return dist;
     }

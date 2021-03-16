@@ -86,13 +86,23 @@ describe('deepClone', () => {
     })
     it('拷贝日期', () => {
       const date = new Date();
-      date.a = { b: { c: 'hi' }};
+      date.a = { b: { c: 'hi' } };
       const date2 = deepClone(date);
       assert(date !== date2);
       assert(date.getTime() === date2.getTime());
       assert(date.a.b.c === date2.a.b.c);
       assert(date.a.b !== date2.a.b);
       assert(date.a !== date2.a);
+    })
+    it('不拷贝原型属性', () => {
+      const obj = Object.create({ name: 'hi' });
+      obj.a = { b: { c: 'hi' } };
+      const obj2 = deepClone(obj);
+      assert(obj !== obj2);
+      assert.isFalse('name' in obj2);
+      assert(obj.a.b.c === obj2.a.b.c);
+      assert(obj.a.b !== obj2.a.b);
+      assert(obj.a !== obj2.a);
     })
   });
 });
